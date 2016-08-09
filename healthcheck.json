@@ -1,0 +1,254 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Route53 health checks stack",
+    "Parameters":{
+    	"FailureThreshold": {
+           "Description": "How many times the health check can fail",
+           "Type": "String",
+           "Default": "3" 
+        },
+       	"Port":{
+       		"Description": "The port on the endpoint on which you want to perform health checks.",
+            "Type": "String",
+            "Default": "443" 
+        },
+        "RequestInterval":{
+        	"Description": "Seconds between the next health-check request.",
+            "Type": "String",
+            "Default": "30" 
+        },
+        "ResourcePath" :{
+        	"Description": "The path that you want Amazon Route 53 to request when performing health checks.",
+            "Type": "String",
+            "Default": "/" 
+        },
+        "Type" :{
+        	"Description": "The type of health check that you want to create, which indicates whether an endpoint is healthy.",
+            "Type": "String",
+            "Default": "HTTPS" 
+   		 }
+   	},
+    "Resources": {
+        "AutomationMasterCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-automation-master.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-automation-master.appspot.com"
+ 				}]
+ 			}
+        },
+         "SkynetCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-skynet-hrd.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-skynet-hrd.appspot.com"
+ 				}]
+ 			}
+        },
+         "AutomationReleaseCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-automation-release.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-automation-release.appspot.com"
+ 				}]
+ 			}
+        },
+         "DogFoodCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-dogfood-hrd.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-dogfood-hrd.appspot.com"
+ 				}]
+ 			}
+        },
+         "WfHrdCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "webfilings-hrd.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "webfilings-hrd.appspot.com"
+ 				}]
+ 			}
+        },
+         "WfEuCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "webfilings-eu.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "webfilings-eu.appspot.com"
+ 				}]
+ 			}
+        },
+         "WfEuMirrorCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "webfilings-eu-mirror.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "webfilings-eu-mirror.appspot.com"
+ 				}]
+ 			}
+        },
+         "WfMirrorHrdCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "webfilings-mirror-hrd.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "webfilings-mirror-hrd.appspot.com"
+ 				}]
+ 			}
+        }, 
+        "WfDemoEuCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-demo-eu.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-demo-eu.appspot.com"
+ 				}]
+ 			}
+        },
+        "WfDemoHrdCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-demo-hrd.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-demo-hrd.appspot.com"
+ 				}]
+ 			}
+        },
+        "WfTrialHrdCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "wf-trial-hrd.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "wf-trial-hrd.appspot.com"
+ 				}]
+ 			}
+        },
+        "UrlProdCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "w-short-url-prod.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "w-short-url-prod.appspot.com"
+ 				}]
+ 			}
+        },
+        "UrlProdEuCheck": {
+        	"Type": "AWS::Route53::HealthCheck",
+        	"Properties":{
+        		"HealthCheckConfig":{
+        			"FailureThreshold":{"Ref": "FailureThreshold"},
+        			"FullyQualifiedDomainName" : "w-short-url-prod-eu.appspot.com",
+        			"Port":{"Ref": "Port"},
+        			"RequestInterval":{"Ref": "RequestInterval"},
+        			"ResourcePath":{"Ref": "ResourcePath"},
+        			"Type":{"Ref": "Type"}
+ 				},
+ 				"HealthCheckTags" :[{
+ 					"Key": "Name",
+      				"Value": "w-short-url-prod-eu.appspot.com"
+ 				}]
+ 			}
+        }
+    }
+}
